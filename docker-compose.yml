@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  nodetut-redis: 
+    image: redis:4-alpine
+
+  nodetut-server:
+    build: ./server/
+    depends_on: 
+      - nodetut-redis
+    links:
+      - nodetut-redis
+    volumes:
+      - ./server/src/:/usr/bin/server/src/
+    ports:
+      - "4444:8888"
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=nodetut-redis  
