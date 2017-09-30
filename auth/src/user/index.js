@@ -15,7 +15,7 @@ async function isAuthorized(request) {
 }
 
 async function hasValidRefreshToken(token) {
-  const { username } = await Token.getPayload(refreshToken);
+  const { username } = await Token.getPayload(token);
   const correctRefreshToken = await redis.getAsync(`${username}_refresh_token`);
 
   return correctRefreshToken === token;
